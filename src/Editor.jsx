@@ -83,10 +83,7 @@ export default class MentionEditor extends React.Component {
     const HashSuggestions = this.hashPlugin.MentionSuggestions;
     const RelationSuggestions = this.relationPlugin.MentionSuggestions;
     const plugins = [this.mentionPlugin, this.hashPlugin, this.relationPlugin];
-
     const { editorState } = this.state;
-    const { readOnly } = this.props
-
     return (
       <div className='root'>
         <div onClick={this.focus}>
