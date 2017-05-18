@@ -1,39 +1,21 @@
-import React, { Component } from 'react';
-import './RichEditor.css';
-import _ from 'lodash';
-import RichEditor from './RichEditor';
-import 'draft-js-mention-plugin/lib/plugin.css'
+import React from 'react';
+import Editor from './Editor';
 
-const users = [
-  {name: 'Adam', value: 'adam'},
+const data = [
+  {name: 'adam', value: 'adam'},
   {name: 'bdam', value: 'bdam'},
   {name: 'cdam', value: 'cdam'},
   {name: 'ddam', value: 'ddam'},
   {name: 'vdam', value: 'vdam'},
   {name: 'zdam', value: 'zdam'},
-  // {name: 'Бадам', value: 'Бадам'},
-  // {name: 'Гадам', value: 'Гадам'},
-  // {name: 'Вадам', value: 'Вадам'},
 ]
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      size: {},
-      settings: {},
-      assets: {},
-    }
-  }
-
-  
-  render() {
-    return (
-      <div className="App">
-        <RichEditor users={users} />
-      </div>
-    );
-  }
-}
+const App = () => (
+  <div className="App">
+    <Editor data={data} />
+    <Editor data={data} />
+    <Editor data={data} />
+  </div>
+);
 
 export default App;

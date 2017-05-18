@@ -1,17 +1,13 @@
 {
-  "name": "tast-img",
+  "name": "mention-editor",
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
     "react-scripts": "0.9.5"
   },
   "dependencies": {
-    "draft-js": "0.10.0",
-    "draft-js-export-html": "^0.5.4",
-    "draft-js-import-html": "^0.3.2",
     "draft-js-mention-plugin": "2.0.0-beta11",
     "draft-js-plugins-editor": "2.0.0-beta11",
-    "lodash": "^4.17.4",
     "react": "^15.5.4",
     "react-dom": "^15.5.4"
   },
