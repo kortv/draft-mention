@@ -12,6 +12,8 @@ export default class MentionEditor extends React.Component {
     this.state = {
       editorState: EditorState.createEmpty(),
       suggestions: fromJS(props.data || []),
+      hashSuggestions: fromJS(props.data || []),
+      relationSuggestions: fromJS(props.data || []),
     };
     this.mentionPlugin = createMentionPlugin({
       mentionPrefix: '@',
@@ -42,7 +44,7 @@ export default class MentionEditor extends React.Component {
     console.log(value, this.props.data);
     const data = [{ value, name: value }, ...this.props.data]
     this.setState({
-      suggestions: defaultSuggestionsFilter(value, fromJS(data), 99),
+      hashSuggestions: defaultSuggestionsFilter(value, fromJS(data), 99),
     });
   };
 
@@ -57,7 +59,7 @@ export default class MentionEditor extends React.Component {
     console.log(value, this.props.data);
     const val = value.slice(1)
     this.setState({
-      suggestions: fromJS(this.props.data.filter((obj) => {
+      relationSuggestions: fromJS(this.props.data.filter((obj) => {
         const regExp = new RegExp(val)
         return regExp.test(obj.name)
       })),
@@ -103,12 +105,12 @@ export default class MentionEditor extends React.Component {
           <HashSuggestions
             callbacks={(val) => { console.log(val) }}
             onSearchChange={this.onHashSearch}
-            suggestions={this.state.suggestions}
+            suggestions={this.state.hashSuggestions}
           />
           <RelationSuggestions
             callbacks={(val) => { console.log(val) }}
             onSearchChange={this.onRelationSearch}
-            suggestions={this.state.suggestions}
+            suggestions={this.state.relationSuggestions}
           />
         </div>
       </div>

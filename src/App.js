@@ -13,8 +13,6 @@ const data = [
 const App = () => (
   <div className="App">
     <Editor data={data} />
-    <Editor data={data} />
-    <Editor data={data} />
   </div>
 );
 
