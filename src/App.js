@@ -1,18 +1,34 @@
 import React from 'react';
 import Editor from './Editor';
 
-const data = [
-  {name: 'adam', value: 'adam'},
-  {name: 'bdam', value: 'bdam'},
-  {name: 'cdam', value: 'cdam'},
-  {name: 'ddam', value: 'ddam'},
-  {name: 'vdam', value: 'vdam'},
-  {name: 'zdam', value: 'zdam'},
+const persons = [
+  {name: 'aName'},
+  {name: 'bName'},
+  {name: 'cName'},
+  {name: 'dName'},
+  {name: 'vName'},
+  {name: 'zName'},
+]
+const hashes = [
+  {name: 'aHash'},
+  {name: 'bHash'},
+  {name: 'cHash'},
+  {name: 'dHash'},
+  {name: 'vHash'},
+  {name: 'zHash'},
+]
+const relations = [
+  {name: 'aRelation'},
+  {name: 'bRelation'},
+  {name: 'cRelation'},
+  {name: 'dRelation'},
+  {name: 'vRelation'},
+  {name: 'zRelation'},
 ]
 
 const App = () => (
   <div className="App">
-    <Editor data={data} />
+    <Editor persons={persons} hashes={hashes} relations={relations} />
   </div>
 );
 

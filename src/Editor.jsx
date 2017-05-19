@@ -6,14 +6,29 @@ import { fromJS } from 'immutable';
 import createMentionPlugin, {defaultSuggestionsFilter} from 'draft-js-mention-plugin';
 import './Editor.css';
 
+const entryComponent = (prefix) => (props) => {
+  const {
+    mention,
+    theme,
+    searchValue, // eslint-disable-line no-unused-vars
+    ...parentProps
+  } = props;
+
+  return (
+    <div {...parentProps}>
+      <span className={theme.mentionSuggestionsEntryText}>{prefix}{mention.get('name')}</span>
+    </div>
+  );
+};
+
 export default class MentionEditor extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       editorState: EditorState.createEmpty(),
-      suggestions: fromJS(props.data || []),
-      hashSuggestions: fromJS(props.data || []),
-      relationSuggestions: fromJS(props.data || []),
+      suggestions: fromJS(props.persons || []),
+      hashSuggestions: fromJS(props.hashes || []),
+      relationSuggestions: fromJS(props.relations || []),
     };
     this.mentionPlugin = createMentionPlugin({
       mentionPrefix: '@',
@@ -41,28 +56,24 @@ export default class MentionEditor extends React.Component {
   };
 
   onHashSearch = ({ value }) => {
-    console.log(value, this.props.data);
-    const data = [{ value, name: value }, ...this.props.data]
+    const hashes = [{ name: value }, ...this.props.hashes]
     this.setState({
-      hashSuggestions: defaultSuggestionsFilter(value, fromJS(data), 99),
+      hashSuggestions: defaultSuggestionsFilter(value, fromJS(hashes), 99),
     });
   };
 
-  onMentionChange = ({ value }) => {
-    console.log(value, this.props.data);
+  onPersonSearch = ({ value }) => {
+    const persons = [{ name: value }, ...this.props.persons];
     this.setState({
-      suggestions: defaultSuggestionsFilter(value, fromJS(this.props.data), 99),
+      suggestions: defaultSuggestionsFilter(value, fromJS(persons), 99),
     });
   };
 
   onRelationSearch = ({ value }) => {
-    console.log(value, this.props.data);
-    const val = value.slice(1)
+    const cuttedValue = value.slice(1)
+    const relations = [{ name: cuttedValue }, ...this.props.relations];
     this.setState({
-      relationSuggestions: fromJS(this.props.data.filter((obj) => {
-        const regExp = new RegExp(val)
-        return regExp.test(obj.name)
-      })),
+      relationSuggestions: defaultSuggestionsFilter(cuttedValue, fromJS(relations), 99),
     });
   };
 
@@ -71,6 +82,7 @@ export default class MentionEditor extends React.Component {
   };
 
   handleKeyCommand = (command) => {
+    console.log(command)
     const { editorState } = this.state;
     const newState = RichUtils.handleKeyCommand(editorState, command);
     if (newState) {
@@ -86,6 +98,7 @@ export default class MentionEditor extends React.Component {
     const RelationSuggestions = this.relationPlugin.MentionSuggestions;
     const plugins = [this.mentionPlugin, this.hashPlugin, this.relationPlugin];
     const { editorState } = this.state;
+
     return (
       <div className='root'>
         <div onClick={this.focus}>
@@ -99,18 +112,21 @@ export default class MentionEditor extends React.Component {
           />
           <MentionSuggestions
             callbacks={(val) => { console.log(val) }}
-            onSearchChange={this.onMentionChange}
+            onSearchChange={this.onPersonSearch}
             suggestions={this.state.suggestions}
+            entryComponent={entryComponent('@')}
           />
           <HashSuggestions
             callbacks={(val) => { console.log(val) }}
             onSearchChange={this.onHashSearch}
             suggestions={this.state.hashSuggestions}
+            entryComponent={entryComponent('#')}
           />
           <RelationSuggestions
             callbacks={(val) => { console.log(val) }}
             onSearchChange={this.onRelationSearch}
             suggestions={this.state.relationSuggestions}
+            entryComponent={entryComponent('<>')}
           />
         </div>
       </div>
