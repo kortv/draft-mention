@@ -29,8 +29,9 @@ export default class MentionEditor extends React.Component {
       suggestions: fromJS(props.persons || []),
       hashSuggestions: fromJS(props.hashes || []),
       relationSuggestions: fromJS(props.relations || []),
-    };
-    this.mentionPlugin = createMentionPlugin({
+    }
+
+    this.personPlugin = createMentionPlugin({
       mentionPrefix: '@',
       entityMutability: 'IMMUTABLE',
       mentionTrigger: '@',
@@ -40,13 +41,13 @@ export default class MentionEditor extends React.Component {
       mentionPrefix: '#',
       entityMutability: 'IMMUTABLE',
       mentionTrigger: '#',
-    });
+    })
 
     this.relationPlugin = createMentionPlugin({
       mentionPrefix: '<>',
       entityMutability: 'IMMUTABLE',
       mentionTrigger: '<>',
-    });
+    })
   }
 
   onChange = (editorState) => {
@@ -93,10 +94,10 @@ export default class MentionEditor extends React.Component {
   }
 
   render() {
-    const { MentionSuggestions } = this.mentionPlugin;
+    const PentionSuggestions = this.personPlugin.MentionSuggestions;
     const HashSuggestions = this.hashPlugin.MentionSuggestions;
     const RelationSuggestions = this.relationPlugin.MentionSuggestions;
-    const plugins = [this.mentionPlugin, this.hashPlugin, this.relationPlugin];
+    const plugins = [this.personPlugin, this.hashPlugin, this.relationPlugin];
     const { editorState } = this.state;
 
     return (
@@ -104,13 +105,13 @@ export default class MentionEditor extends React.Component {
         <div onClick={this.focus}>
           <Editor
             editorState={editorState}
-            handleKeyCommand={this.handleKeyCommand}
+            // handleKeyCommand={this.handleKeyCommand}
             onChange={this.onChange}
             ref={(e) => { this.editor = e}}
             spellCheck
             plugins={plugins}
           />
-          <MentionSuggestions
+          <PentionSuggestions
             callbacks={(val) => { console.log(val) }}
             onSearchChange={this.onPersonSearch}
             suggestions={this.state.suggestions}
