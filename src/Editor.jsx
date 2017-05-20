@@ -4,6 +4,7 @@ import { EditorState, RichUtils } from 'draft-js';
 import Editor from 'draft-js-plugins-editor';
 import { fromJS } from 'immutable';
 import createMentionPlugin, {defaultSuggestionsFilter} from 'draft-js-mention-plugin';
+import createHashPlugin from './draft-js-mention-plugin';
 import './Editor.css';
 
 const entryComponent = (prefix) => (props) => {
@@ -37,7 +38,7 @@ export default class MentionEditor extends React.Component {
       mentionTrigger: '@',
     })
 
-    this.hashPlugin = createMentionPlugin({
+    this.hashPlugin = createHashPlugin({
       mentionPrefix: '#',
       entityMutability: 'IMMUTABLE',
       mentionTrigger: '#',
