@@ -1,10 +1,12 @@
 import React from 'react';
-import "draft-js-mention-plugin/lib/plugin.css";
 import { EditorState, RichUtils } from 'draft-js';
 import Editor from 'draft-js-plugins-editor';
 import { fromJS } from 'immutable';
 import createMentionPlugin, {defaultSuggestionsFilter} from 'draft-js-mention-plugin';
 import createHashPlugin from './draft-js-mention-plugin';
+import Avatar from './Avatar.js';
+
+import "draft-js-mention-plugin/lib/plugin.css";
 import './Editor.css';
 
 const entryComponent = (prefix) => (props) => {
@@ -17,7 +19,10 @@ const entryComponent = (prefix) => (props) => {
 
   return (
     <div {...parentProps}>
-      <span className={theme.mentionSuggestionsEntryText}>{prefix}{mention.get('name')}</span>
+      <span className={theme.mentionSuggestionsEntryText}>
+        {mention.has("avatar") ? <Avatar {...{mention, theme}} /> : prefix}
+        {mention.get('name')}
+      </span>
     </div>
   );
 };
