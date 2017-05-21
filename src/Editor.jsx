@@ -16,10 +16,11 @@ const entryComponent = (prefix) => (props) => {
     searchValue, // eslint-disable-line no-unused-vars
     ...parentProps
   } = props;
+  console.log(theme.mentionSuggestionsEntryText);
 
   return (
     <div {...parentProps}>
-      <span className={theme.mentionSuggestionsEntryText}>
+      <span className={`${theme.mentionSuggestionsEntryText} mention__item`}>
         {mention.has("avatar") ? <Avatar {...{mention, theme}} /> : prefix}
         {mention.get('name')}
       </span>

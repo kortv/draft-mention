@@ -11,3 +11,12 @@
   display: flex;
   justify-content: space-between;
 }
+
+.mention__item {
+  display: flex;
+  align-items: center;
+}
+
+.mention__avatar {
+  margin-right: 10px;
+}

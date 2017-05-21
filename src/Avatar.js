@@ -5,7 +5,7 @@ const Avatar = ({ mention, theme = {} }) => {
     return (
       <img
         src={mention.get("avatar")}
-        className={theme.mentionSuggestionsEntryAvatar}
+        className={`${theme.mentionSuggestionsEntryAvatar} mention__avatar`}
         role="presentation"
       />
     );
